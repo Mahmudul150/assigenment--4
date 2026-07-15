@@ -30,12 +30,16 @@ const providerCreateGear = async(providerId:string , payload:IGearItem)=>{
   return gearData
 }
 
-const ProviderUpdateGear = async(gearId:string,payload:TUpdateGear)=>{
-    await prisma.gearItem.findUniqueOrThrow({
+const ProviderUpdateGear = async(gearId:string,payload:TUpdateGear,providerId: string,)=>{
+  const gear =  await prisma.gearItem.findUniqueOrThrow({
     where: {
       id: gearId,
     },
   });
+
+    if (gear.providerId !== providerId) {
+    throw new Error("You are not authorized to update this gear");
+  }
 
   if (payload.categoryId) {
     await prisma.category.findUniqueOrThrow({
@@ -56,13 +60,17 @@ const ProviderUpdateGear = async(gearId:string,payload:TUpdateGear)=>{
 }
 
 
-const ProviderDeleteGear = async(gearId:string)=>{
+const ProviderDeleteGear = async(gearId:string,providerId:string)=>{
     const gear = await prisma.gearItem.findUniqueOrThrow({
     where: {
       id: gearId,
     },
   });
 
+    if (gear.providerId !== providerId) {
+    throw new Error("FORBIDDEN! , You are not authorized to delete this gear"
+    );
+  }
 
   const deletedGear = await prisma.gearItem.delete({
     where: {
@@ -99,12 +107,21 @@ const ProviderGetOrders = async (providerId: string) => {
 };
 
 
-const providerUpdateOrderStatus = async (orderId: string,status: RentalStatus) => {
+const providerUpdateOrderStatus = async (orderId: string,providerId:string,status: RentalStatus) => {
   const order = await prisma.rentalOrder.findUniqueOrThrow({
     where: {
       id: orderId,
     },
+     include: {
+      gear: true,
+    },
   });
+
+
+  if (order.gear.providerId !== providerId) {
+    throw new Error("You are not authorized to update this order");
+  }
+
 
   const updatedOrder = await prisma.rentalOrder.update({
     where: {

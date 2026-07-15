@@ -18,7 +18,10 @@ const createRental = catchAsync(async (req:Request, res:Response,next:NextFuncti
 
 })
 const getAllRentals = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
-      const result = await rentalService.getAllRentals();
+
+      const customerId = req.user?.id;
+
+      const result = await rentalService.getAllRentals(customerId as string);
 
     sendResponse(res, {
       success: true,
@@ -31,7 +34,8 @@ const getAllRentals = catchAsync(async (req:Request, res:Response,next:NextFunct
 
 const getRentalById = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
     const rentalId = req.params.id
-     const result = await rentalService.getRentalById(rentalId as string)
+    const customerId = req.user?.id;
+     const result = await rentalService.getRentalById(rentalId as string, customerId as string)
 
     
     sendResponse(res, {
