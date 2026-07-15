@@ -33,7 +33,7 @@ app.get("/",(req : Request, res : Response) => {
 app.use('/api/auth',authRouter)
 app.use('/api/category',categoryRouter)
 app.use('/api/gear',gearRouter)
-app.use('/api/provider/gear',providerRouter)
+app.use('/api/provider',providerRouter)
 app.use('/api/rentals',rentalRouter)
 app.use('/api/reviews',reviewRouter)
 app.use('/api/admin', adminRouter)

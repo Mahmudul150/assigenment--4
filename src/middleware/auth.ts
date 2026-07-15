@@ -33,10 +33,7 @@ const auth = ( ...requiredRoles:Role[])=>{
 
          const user = await prisma.user.findUnique({
             where:{
-                id,
-                name,
-                email,
-                 role
+                id
             }
          })
 

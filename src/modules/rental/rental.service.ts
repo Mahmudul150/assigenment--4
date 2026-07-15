@@ -31,29 +31,78 @@ const createRental = async (payload: TCreateRental, customerId: string) => {
 
   const totalPrice = rentalDays  * gear.pricePerDay * payload.quantity;
 
-  const rental = await prisma.rentalOrder.create({
-    data: {
-      customerId,
-      gearId: payload.gearId,
-      startDate: start,
-      endDate: end,
-      quantity: payload.quantity,
-      totalPrice,
-    },
-    include:{
-        gear:{
-            select:{
-                id:true,
-                name:true,
-                pricePerDay:true,
-                stock:true
-            }
-        }
+  // const rental = await prisma.rentalOrder.create({
+  //   data: {
+  //     customerId,
+  //     gearId: payload.gearId,
+  //     startDate: start,
+  //     endDate: end,
+  //     quantity: payload.quantity,
+  //     totalPrice,
+  //   },
+  //   include:{
+  //       gear:{
+  //           select:{
+  //               id:true,
+  //               name:true,
+  //               pricePerDay:true,
+  //               stock:true
+  //           }
+  //       }
+  //   }
+  // });
+
+
+ const rental = await prisma.$transaction(async (tx) => {
+    const createdRental = await tx.rentalOrder.create({
+      data: {
+        customerId,
+        gearId: payload.gearId,
+        startDate: start,
+        endDate: end,
+        quantity: payload.quantity,
+        totalPrice,
+      },
+      include: {
+        gear: {
+          select: {
+            id: true,
+            name: true,
+            pricePerDay: true,
+            stock: true,
+          },
+        },
+      },
+    });
+
+    const updatedGear = await tx.gearItem.update({
+      where: {
+        id: payload.gearId,
+      },
+      data: {
+        stock: {
+          decrement: payload.quantity,
+        },
+      },
+    });
+
+    // Stock 0 হলে availability false করে দাও
+    if (updatedGear.stock === 0) {
+      await tx.gearItem.update({
+        where: {
+          id: payload.gearId,
+        },
+        data: {
+          isAvailable: false,
+        },
+      });
     }
+
+    return createdRental;
   });
 
   return rental;
-};
+}; 
 
 const getAllRentals = async () => {
   const rentals = await prisma.rentalOrder.findMany({
