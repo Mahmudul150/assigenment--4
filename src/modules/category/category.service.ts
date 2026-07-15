@@ -18,6 +18,8 @@ const createCategory = async(payload:TCategory)=>{
       description
     }
   });
+
+  return data;
 }
 
 

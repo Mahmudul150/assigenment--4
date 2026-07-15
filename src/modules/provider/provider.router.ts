@@ -5,11 +5,11 @@ import { ProviderController } from "./provider.controler";
 
 const router = Router();
 
-router.post('/',auth(Role.PROVIDER),ProviderController.providerCreateGear)
+router.post('/gear',auth(Role.PROVIDER),ProviderController.providerCreateGear)
 
-router.patch('/update/:id',auth(Role.PROVIDER),ProviderController.providerUpdateGear)
+router.put('/gear/:id',auth(Role.PROVIDER),ProviderController.providerUpdateGear)
 
-router.delete('/delete/:id',auth(Role.PROVIDER),ProviderController.providerDeleteGear)
+router.delete('/gear/:id',auth(Role.PROVIDER),ProviderController.providerDeleteGear)
 
 router.get("/orders", auth(Role.PROVIDER), ProviderController.ProviderGetOrders);
 
