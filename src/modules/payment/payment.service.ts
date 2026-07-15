@@ -57,9 +57,7 @@ const createPayment = async (customerId: string, rentalId: string) => {
       },
     });
 
-    return {
-      paymentUrl: session.url,
-    };
+    return  session.url
   });
   return {
     paymentUrl: transactionResult,
