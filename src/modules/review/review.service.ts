@@ -1,9 +1,8 @@
 import { prisma } from "../../lib/prisma";
-import { TReview } from "./review.interface"
+import { TReview } from "./review.interface";
 
-const reViewsCreate = async (customerId:string, payload:TReview)=>{
-
-     const { gearId, rating, comment } = payload;
+const reViewsCreate = async (customerId: string, payload: TReview) => {
+  const { gearId, rating, comment } = payload;
 
   await prisma.gearItem.findUniqueOrThrow({
     where: {
@@ -11,7 +10,11 @@ const reViewsCreate = async (customerId:string, payload:TReview)=>{
     },
   });
 
-   const rental = await prisma.rentalOrder.findFirst({
+   if (rating < 1 || rating > 5) {
+    throw new Error("Rating must be between 1 and 5");
+  }
+
+  const rental = await prisma.rentalOrder.findFirst({
     where: {
       customerId,
       gearId,
@@ -19,12 +22,11 @@ const reViewsCreate = async (customerId:string, payload:TReview)=>{
     },
   });
 
-
   if (!rental) {
     throw new Error("You can review only after returning this gear.");
   }
 
-   const existingReview = await prisma.review.findFirst({
+  const existingReview = await prisma.review.findFirst({
     where: {
       customerId,
       gearId,
@@ -44,11 +46,11 @@ const reViewsCreate = async (customerId:string, payload:TReview)=>{
     },
   });
 
-  return review
-}
+  return review;
+};
 
-const getReview = async()=>{
-      const reviews = await prisma.review.findMany({
+const getReview = async () => {
+  const reviews = await prisma.review.findMany({
     include: {
       customer: {
         select: {
@@ -72,9 +74,9 @@ const getReview = async()=>{
   });
 
   return reviews;
-}
+};
 
 export const reviewService = {
-    reViewsCreate,
-    getReview
-}
+  reViewsCreate,
+  getReview,
+};
