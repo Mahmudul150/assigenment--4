@@ -104,11 +104,10 @@ const createRental = async (payload: TCreateRental, customerId: string) => {
   return rental;
 }; 
 
-const getAllRentals = async () => {
+const getAllRentals = async (customerId:string) => {
   const rentals = await prisma.rentalOrder.findMany({
-    include: {
-      gear:true,
-      payment: true,
+    where: {
+      customerId,
     },
     orderBy: {
       createdAt: "desc",
@@ -118,11 +117,16 @@ const getAllRentals = async () => {
   return rentals;
 };
 
-const getRentalById = async (rentalId:string) => {
+const getRentalById = async (rentalId:string, customerId:string) => {
         const rental = await prisma.rentalOrder.findUnique({
             where:{
-                id:rentalId
-            }
+                id:rentalId,
+                customerId
+            },
+            include: {
+                gear: true,
+               payment: true,
+                    },
         })
 
         return rental

@@ -6,7 +6,7 @@ import { rentalController } from "./rental.controler";
 const router = Router()
 
 router.post('/',auth(Role.CUSTOMER), rentalController.createRental)
-router.get('/', auth(Role.ADMIN, Role.CUSTOMER), rentalController.getAllRentals)
+router.get('/', auth(Role.CUSTOMER), rentalController.getAllRentals)
 router.get('/:id', auth(Role.CUSTOMER), rentalController.getRentalById)
 
 export const rentalRouter = router
