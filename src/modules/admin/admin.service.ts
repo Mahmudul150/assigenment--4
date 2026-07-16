@@ -67,7 +67,15 @@ const getAllGear = async () => {
 const getAllRentals = async () => {
   return await prisma.rentalOrder.findMany({
     include: {
-      customer: true,
+      customer:{
+          select: {
+    id: true,
+    name: true,
+    email: true,
+    role: true,
+    status: true,
+  },
+      },
       gear: true,
       payment: true,
     },

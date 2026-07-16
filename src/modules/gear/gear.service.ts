@@ -101,6 +101,7 @@ const getAllGear = async (query: IGearQuery) => {
           password: true,
         },
       },
+      reviews:true
     },
   });
 

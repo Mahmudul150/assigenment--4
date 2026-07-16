@@ -4,6 +4,7 @@ import { TULog, TUser } from "./auth.interface"
 import config from "../../config"
 import Jwt, { JwtPayload, SignOptions }  from "jsonwebtoken";
 import { jwtUtils } from "../../utils/jwt";
+import { Role } from "../../../generated/prisma/enums";
 
 const registerUser  = async(payload:TUser)=>{
     const {name,email,password,phone,address,profileImage,role,status}= payload
@@ -14,6 +15,11 @@ const registerUser  = async(payload:TUser)=>{
             email
         }
     })
+
+     if (role === Role.ADMIN) {
+    throw new Error("Admin registration is not allowed.");
+  }
+
     if (isUserExist) {
         throw new Error("User Already exist ...!");
         

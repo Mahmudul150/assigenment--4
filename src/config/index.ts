@@ -7,6 +7,8 @@ export default {
   port: process.env.PORT,
   app_url: process.env.APP_URL,
   connection_string: process.env.DATABASE_URL,
+  admin_email:process.env.ADMIN_EMAIL!,
+  admin_password:process.env.ADMIN_PASSWORD!,
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS!,
   jwt_access_secret: process.env.JWT_ACCESS_SECRET!,
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET!,
