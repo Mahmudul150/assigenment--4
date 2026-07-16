@@ -14,6 +14,9 @@ const updateUserStatus = async (id: string, payload: TUpdateUserStatus) => {
     where: {
       id
     },
+    omit:{
+      password:true
+    }
   });
 
   const user = await prisma.user.update({
@@ -59,6 +62,6 @@ const getAllRentals = async () => {
 export const adminService = {
   getAllUsers,
   updateUserStatus,
-  getAllGear,
+  getAllGear, 
   getAllRentals,
 };

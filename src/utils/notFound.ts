@@ -1,9 +1,12 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 
 export const notFound = (req: Request, res: Response) => {
-    res.status(404).json({
-        message: "Route are not found...!",
-        path: req.originalUrl,
-        date: new Date()
-    })
-}
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+    errorDetails: {
+      path: req.originalUrl,
+      method: req.method,
+    },
+  });
+};

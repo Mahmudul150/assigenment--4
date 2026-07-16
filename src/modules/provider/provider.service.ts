@@ -122,36 +122,62 @@ const providerUpdateOrderStatus = async (orderId: string,providerId:string,statu
     throw new Error("You are not authorized to update this order");
   }
 
-
-  const updatedOrder = await prisma.rentalOrder.update({
-    where: {
-      id: orderId,
-    },
-    data: {
+ const result = await prisma.$transaction(async (tx) => {
+    const updateData: any = {
       status,
-    },
-    include: {
-      customer: {
-        select:{
-            id:true,
-            name:true,
-            email:true
-        }
+    };
+
+    // যদি gear return হয়
+    if (status === RentalStatus.RETURNED) {
+      updateData.returnedAt = new Date();
+    }
+
+    const updatedOrder = await tx.rentalOrder.update({
+      where: {
+        id: orderId,
       },
-      gear: {
-        select:{
-            id:true,
-            name:true,
-            brand:true,
-            pricePerDay:true,
-            stock:true
-        }
+      data: updateData,
+      include: {
+        customer: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        gear: {
+          select: {
+            id: true,
+            name: true,
+            brand: true,
+            pricePerDay: true,
+            stock: true,
+            isAvailable: true,
+          },
+        },
       },
-    //   payment: true,
-    },
+    });
+
+    // Return হলে stock ফেরত দাও
+    if (status === RentalStatus.RETURNED) {
+      await tx.gearItem.update({
+        where: {
+          id: order.gearId,
+        },
+        data: {
+          stock: {
+            increment: order.quantity,
+          },
+          isAvailable: true,
+        },
+      });
+    }
+
+    return updatedOrder;
   });
 
-  return updatedOrder;
+  return result;
+
 };
 
 

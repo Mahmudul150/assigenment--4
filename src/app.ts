@@ -11,6 +11,7 @@ import { reviewRouter } from './modules/review/review.router';
 import { adminRouter } from './modules/admin/admin.router';
 import { paymentRouter } from './modules/payment/payment.router';
 import { notFound } from './utils/notFound';
+import { globalErrorHandler } from './middleware/globalErrorHandler';
 // import { paymentRouter } from './modules/payment/payment.router';
 
 
@@ -43,6 +44,7 @@ app.use("/api/payments", paymentRouter);
 
 
 app.use(notFound)
+app.use(globalErrorHandler);
 
 
 

@@ -4,13 +4,8 @@ export const catchAsync = (fn:RequestHandler)=>{
     return async (req:Request,res:Response,next:NextFunction) =>{
         try {
             await fn(req , res, next)
-        } catch (error:any) {
-        res.status(500).json({
-        success:false,
-        message:"Internal server Error",
-        error:error.message
-        })
-            next()
+        } catch (error) {
+            next(error)
         }
     }
 }
