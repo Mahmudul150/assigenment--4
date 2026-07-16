@@ -31,7 +31,7 @@ const updateUserStatus = catchAsync(async (req:Request, res:Response,next:NextFu
   });
 });
 
-const getAllGear = catchAsync(async (req, res, next) => {
+const getAllGear = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
   const result = await adminService.getAllGear();
 
   sendResponse(res, {
@@ -42,7 +42,7 @@ const getAllGear = catchAsync(async (req, res, next) => {
   });
 });
 
-const getAllRentals = catchAsync(async (req, res, next) => {
+const getAllRentals = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
   const result = await adminService.getAllRentals();
 
   sendResponse(res, {
