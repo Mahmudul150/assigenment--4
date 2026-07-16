@@ -142,7 +142,8 @@ const getSingelGear = async(gearId:string)=>{
                     name:true,
                     email:true
                 }
-            }
+            },
+            reviews:true
         }
     })
 
