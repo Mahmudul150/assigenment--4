@@ -1,11 +1,6 @@
 import { GearItemWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
-import { IGearItem, IGearQuery, TUpdateGear } from "./gear.interface";
-
-
-
-
-
+import { IGearQuery } from "./gear.interface";
 
 
 const getAllGear = async (query: IGearQuery) => {
@@ -44,7 +39,7 @@ const getAllGear = async (query: IGearQuery) => {
     });
   }
 
-  // Name Filter
+
   if (query.name) {
     andConditions.push({
       name: {
@@ -54,7 +49,7 @@ const getAllGear = async (query: IGearQuery) => {
     });
   }
 
-  // Brand Filter
+
   if (query.brand) {
     andConditions.push({
       brand: {
@@ -64,21 +59,21 @@ const getAllGear = async (query: IGearQuery) => {
     });
   }
 
-  // Category Filter
+ 
   if (query.categoryId) {
     andConditions.push({
       categoryId: query.categoryId,
     });
   }
 
-  // Condition Filter
+
   if (query.condition) {
     andConditions.push({
       condition: query.condition,
     });
   }
 
-  // Availability Filter
+ 
   if (query.isAvailable) {
     andConditions.push({
       isAvailable: query.isAvailable === "true",
@@ -177,9 +172,6 @@ const getGearWithCategory = async(categoryId:string)=>{
 
     return GearWithCategory
 }
-
-
-
 
 
 export const gearService = {

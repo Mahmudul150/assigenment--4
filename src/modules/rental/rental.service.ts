@@ -31,27 +31,6 @@ const createRental = async (payload: TCreateRental, customerId: string) => {
 
   const totalPrice = rentalDays  * gear.pricePerDay * payload.quantity;
 
-  // const rental = await prisma.rentalOrder.create({
-  //   data: {
-  //     customerId,
-  //     gearId: payload.gearId,
-  //     startDate: start,
-  //     endDate: end,
-  //     quantity: payload.quantity,
-  //     totalPrice,
-  //   },
-  //   include:{
-  //       gear:{
-  //           select:{
-  //               id:true,
-  //               name:true,
-  //               pricePerDay:true,
-  //               stock:true
-  //           }
-  //       }
-  //   }
-  // });
-
 
  const rental = await prisma.$transaction(async (tx) => {
     const createdRental = await tx.rentalOrder.create({
@@ -86,7 +65,7 @@ const createRental = async (payload: TCreateRental, customerId: string) => {
       },
     });
 
-    // Stock 0 হলে availability false করে দাও
+
     if (updatedGear.stock === 0) {
       await tx.gearItem.update({
         where: {

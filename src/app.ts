@@ -29,7 +29,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 app.get("/",(req : Request, res : Response) => {
-    res.send("Hello, Meye!");
+    res.send("Backend Assigenment !");
 });
 
 app.use('/api/auth',authRouter)

@@ -11,7 +11,7 @@ const createCategory = async(payload:TCategory)=>{
     throw new Error("Category name already exists");
   }
 
-  // ডাটাবেজে সেভ করা
+ 
   const data = await prisma.category.create({
     data: {
       name,

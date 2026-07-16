@@ -4,9 +4,6 @@ const createToken = (payload : JwtPayload, secret : string, expiresIn : SignOpti
     const token = jwt.sign(
         payload, 
         secret, 
-        // {
-        //     expiresIn
-        // } as SignOptions
         expiresIn
     );
 

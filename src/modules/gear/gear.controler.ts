@@ -4,10 +4,6 @@ import { gearService } from "./gear.service";
 import httpStatus from 'http-status';
 import { sendResponse } from "../../utils/sendResponse";
 
-
-
-
-
 const getAllGear = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
 
     const query = req.query
@@ -50,9 +46,6 @@ const getGearWithCategory = catchAsync(async (req:Request, res:Response,next:Nex
     });
 
 })
-
-
-
 
 
 

@@ -11,17 +11,6 @@ export interface IGearItem {
   categoryId: string;
 }
 
-// export interface IGearQuery {
-//   name?: string;
-//   brand?: string;
-
-//   pricePerDay?: number;
-//   condition?: string;
-//   isAvailable?: boolean;
-//   categoryId?: string;
-// }
-
-
 export interface IGearQuery {
   searchTerm?: string;
   name?: string;

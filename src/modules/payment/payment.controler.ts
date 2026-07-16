@@ -21,7 +21,7 @@ const confirmPayment = catchAsync(async (req:Request, res:Response,next:NextFunc
   
     const payload = req.body as Buffer;
     const signature = req.headers["stripe-signature"];
-    
+
    await paymentService.confirmPayment(payload  , signature as string);
 
   sendResponse(res, {
@@ -49,7 +49,8 @@ const getPaymentHistory = catchAsync(async (req:Request, res:Response,next:NextF
   });
 });
 
-const getPaymentDetails = catchAsync(async (req, res) => {
+
+const getPaymentDetails = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
   const customerId = req.user?.id;
     const paymentId =  req.params.id
   const result = await paymentService.getPaymentDetails(

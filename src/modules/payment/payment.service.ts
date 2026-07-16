@@ -72,8 +72,7 @@ const confirmPayment = async (payload:Buffer , signature:string)=>{
     signature,
     endpointSecret
   );
- 
-  // Handle the event
+
 switch (event.type) {
 
     case "checkout.session.completed":

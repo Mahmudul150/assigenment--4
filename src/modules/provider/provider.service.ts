@@ -127,7 +127,7 @@ const providerUpdateOrderStatus = async (orderId: string,providerId:string,statu
       status,
     };
 
-    // যদি gear return হয়
+   
     if (status === RentalStatus.RETURNED) {
       updateData.returnedAt = new Date();
     }
@@ -158,7 +158,7 @@ const providerUpdateOrderStatus = async (orderId: string,providerId:string,statu
       },
     });
 
-    // Return হলে stock ফেরত দাও
+  
     if (status === RentalStatus.RETURNED) {
       await tx.gearItem.update({
         where: {
