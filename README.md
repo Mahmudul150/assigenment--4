@@ -1,4 +1,4 @@
-# 🏋️ GearUp
+#  GearUp
 
 **Rent Sports & Outdoor Gear Instantly**
 
@@ -6,19 +6,11 @@ GearUp is a backend REST API for a sports and outdoor equipment rental platform.
 
 ---
 
-# 🚀 Live Links
+#  Live Links
 
-- **Live Server:** `https://your-live-link.com`
-- **API Documentation:** `https://your-api-docs-link.com`
-
----
-
-# 📂 GitHub Repository
-
-```
-https://github.com/your-username/gearup-backend
-```
-
+- **Live Server:** `https://assigenment4-three.vercel.app/`
+- **API Documentation:** `https://documenter.getpostman.com/view/51136879/2sBY4MvhLa`
+- **GitHub Repository:**`https://github.com/Mahmudul150/assigenment--4`
 ---
 
 # 📖 Project Overview
@@ -110,10 +102,6 @@ Admins manage users, categories, gear listings, and rental activities across the
 
 - Stripe
 
-## Validation
-
-- Zod
-
 ## Others
 
 - Cookie Parser
@@ -124,88 +112,40 @@ Admins manage users, categories, gear listings, and rental activities across the
 
 ---
 
-# 📦 Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/your-username/gearup-backend.git
-```
-
-Go to project
-
-```bash
-cd gearup-backend
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Create a `.env` file
-
-```env
-PORT=5000
-
-DATABASE_URL=
-
-JWT_ACCESS_SECRET=
-JWT_ACCESS_EXPIRES_IN=7d
-
-BCRYPT_SALT_ROUNDS=10
-
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-
-ADMIN_EMAIL=
-ADMIN_PASSWORD=
-```
-
-Run Prisma Migration
-
-```bash
-npx prisma migrate dev
-```
-
-Generate Prisma Client
-
-```bash
-npx prisma generate
-```
-
-Run Development Server
-
-```bash
-npm run dev
-```
-
----
-
 # 📁 Project Structure
 
 ```
 src
 │
-├── app
-│   ├── modules
-│   │      ├── auth
-│   │      ├── user
-│   │      ├── category
-│   │      ├── gear
-│   │      ├── rental
-│   │      ├── payment
-│   │      ├── review
-│   │      └── admin
-│   │
-│   ├── middleware
-│   ├── utils
-│   ├── config
-│   └── routes
+├── config
+│   └── index.ts
 │
-├── prisma
+├── lib
+│   ├── prisma.ts
+│   └── stripe.ts
 │
+├── middleware
+│   ├── auth.ts
+│   └── globalErrorHandler.ts
+│
+├── modules
+│   ├── admin
+│   ├── auth
+│   ├── category
+│   ├── gear
+│   ├── payment
+│   ├── provider
+│   ├── rental
+│   └── review
+│
+├── utils
+│   ├── catchAsync.ts
+│   ├── globalTypes.ts
+│   ├── jwt.ts
+│   ├── notFound.ts
+│   └── sendResponse.ts
+│
+├── app.ts
 └── server.ts
 ```
 
@@ -216,10 +156,6 @@ src
 JWT Authentication is used.
 
 Protected routes require
-
-```
-Authorization: Bearer <token>
-```
 
 Supported Roles
 
@@ -288,9 +224,6 @@ POST   /api/categories
 
 GET    /api/categories
 
-PATCH  /api/categories/:id
-
-DELETE /api/categories/:id
 ```
 
 ---
@@ -298,15 +231,13 @@ DELETE /api/categories/:id
 ## Gear
 
 ```
-POST   /api/gear
 
 GET    /api/gear
 
 GET    /api/gear/:id
 
-PATCH  /api/gear/:id
+GET  /api/gear/categories:categoryId
 
-DELETE /api/gear/:id
 ```
 
 ---
@@ -320,7 +251,7 @@ GET    /api/rentals
 
 GET    /api/rentals/:id
 
-PATCH  /api/rentals/:id
+
 ```
 
 ---
@@ -352,9 +283,15 @@ GET    /api/reviews
 ## Provider
 
 ```
-GET    /api/provider/orders
+POST	    /api/provider/gear
 
-PATCH  /api/provider/orders/:id
+PUT 	    /api/provider/gear/:id
+
+DELETE	    /api/provider/gear/:id
+
+GET          /api/provider/orders
+
+PATCH         /api/provider/orders/:id
 ```
 
 ---
@@ -378,11 +315,17 @@ GET    /api/admin/rentals
 ```env
 PORT
 
+APP_URL
+
 DATABASE_URL
 
 JWT_ACCESS_SECRET
 
 JWT_ACCESS_EXPIRES_IN
+
+JWT_REFRESH_SECRET
+
+JWT_REFRESH_EXPIRES_IN
 
 BCRYPT_SALT_ROUNDS
 

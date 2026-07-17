@@ -13,7 +13,7 @@ const getAllGear = async (query: IGearQuery) => {
 
   const andConditions:GearItemWhereInput[] = [];
 
-  // Search
+ 
   if (query.searchTerm) {
     andConditions.push({
       OR: [
