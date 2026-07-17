@@ -28,7 +28,7 @@ const auth = ( ...requiredRoles:Role[])=>{
          const {email, name , id, role} = verifiedToken.data as JwtPayload;
 
          if (requiredRoles.length && !requiredRoles.includes(role)) {
-            throw new Error("FORBIDDEN . you don't have to permission to access the resource...")
+            throw new Error("FORBIDDEN . you don't have to permission to access the resource.")
          }
 
          const user = await prisma.user.findUnique({
