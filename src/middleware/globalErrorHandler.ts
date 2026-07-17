@@ -57,7 +57,7 @@ export const globalErrorHandler = (
 
       statusCode = httpStatus.UNAUTHORIZED;
       errorMessage =
-        "Authentication failed against database server.";
+        "Authentication failed againsts database server.";
 
     } else if (err.errorCode === "P1001") {
 
@@ -93,5 +93,4 @@ export const globalErrorHandler = (
     errorDetails
 
   });
-
 };
