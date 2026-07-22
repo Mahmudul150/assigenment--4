@@ -153,7 +153,7 @@ const getGearWithCategory = async (categoryId: string) => {
     });
 
     if (!isCategoryExist) {
-        throw new Error("Category not found with this ID");
+        throw new Error("Category  not found with this id");
     }
 
     const gearWithCategory = await prisma.gearItem.findMany({
