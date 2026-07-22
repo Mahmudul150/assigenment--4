@@ -9,7 +9,7 @@ GearUp is a backend REST API for a sports and outdoor equipment rental platform.
 #  Live Links
 
 - **Live Server:** `https://assigenment4-three.vercel.app/`
-- **API Documentation:** `https://documenter.getpostman.com/view/51136879/2sBY4MvhLa`
+- **API Documentation:** `https://documenter.getpostman.com/view/50323079/2sBY4QreQL`
 - **GitHub Repository:**`https://github.com/Mahmudul150/assigenment--4`
 ---
 
