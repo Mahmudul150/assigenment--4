@@ -5,7 +5,8 @@ const router = Router()
 
 
 router.get('/', gearController.getAllGear);
-router.get('/:id',gearController.getSingelGear)
 router.get('/categories/:categoryId',gearController.getGearWithCategory)
+router.get('/:id',gearController.getSingelGear)
+
 
 export const gearRouter = router

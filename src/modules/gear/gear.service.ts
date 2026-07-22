@@ -146,36 +146,6 @@ const getSingelGear = async(gearId:string)=>{
 }
 
 
-// const getGearWithCategory = async(categoryId:string)=>{
-// //     const GearWithCategory = await prisma.gearItem.findMany({
-// //         where:{
-// //             categoryId:categoryId
-// //         },
-// //         include:{
-// //             category:true,
-// //             provider:{
-// //                 select:{
-// //                     id:true,
-// //                     name:true,
-// //                     email:true,
-// //                     status:true
-// //                 }
-// //             },
-
-// //         }
-// //     })
-
-// //     if (!GearWithCategory) {
-// //         throw new Error("Category id is not found");
-        
-// //     }
-
-// //     return GearWithCategory
-// // }
-
-
-
-
 const getGearWithCategory = async (categoryId: string) => {
   
     const isCategoryExist = await prisma.category.findUnique({
