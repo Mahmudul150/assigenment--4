@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
 import { gearController } from "./gear.controler";
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
-router.get('/category/:categoryId',gearController.getGearWithCategory);
+router.get('/categories/:categoryId',gearController.getGearWithCategory);
 router.get('/', gearController.getAllGear);
 router.get('/:id',gearController.getSingelGear);
 
