@@ -148,17 +148,6 @@ const getSingelGear = async(gearId:string)=>{
 
 
 const getGearWithCategory = async (categoryId: string) => {
-
-    const isCategoryExist = await prisma.category.findUnique({
-        where: { id: categoryId }
-    });
-
-    
-    if (!isCategoryExist) {
-        throw new Error("Category not found with this id");
-    }
-
-
     const gearWithCategory = await prisma.gearItem.findMany({
         where: {
             categoryId: categoryId
