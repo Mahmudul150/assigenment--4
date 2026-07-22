@@ -8,7 +8,7 @@ model GearItem {
   condition      String
   image          String?
   isAvailable    Boolean @default(true)
-  specifications String?
+  specification String?
   providerId     String
   provider       User    @relation(fields: [providerId], references: [id], onDelete: Cascade)
 

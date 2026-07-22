@@ -146,33 +146,65 @@ const getSingelGear = async(gearId:string)=>{
 }
 
 
-const getGearWithCategory = async(categoryId:string)=>{
-    const GearWithCategory = await prisma.gearItem.findMany({
-        where:{
-            categoryId:categoryId
-        },
-        include:{
-            category:true,
-            provider:{
-                select:{
-                    id:true,
-                    name:true,
-                    email:true,
-                    status:true
-                }
-            },
+// const getGearWithCategory = async(categoryId:string)=>{
+// //     const GearWithCategory = await prisma.gearItem.findMany({
+// //         where:{
+// //             categoryId:categoryId
+// //         },
+// //         include:{
+// //             category:true,
+// //             provider:{
+// //                 select:{
+// //                     id:true,
+// //                     name:true,
+// //                     email:true,
+// //                     status:true
+// //                 }
+// //             },
 
-        }
-    })
+// //         }
+// //     })
 
-    if (!GearWithCategory) {
-        throw new Error("Category id is not found");
+// //     if (!GearWithCategory) {
+// //         throw new Error("Category id is not found");
         
+// //     }
+
+// //     return GearWithCategory
+// // }
+
+
+
+
+const getGearWithCategory = async (categoryId: string) => {
+  
+    const isCategoryExist = await prisma.category.findUnique({
+        where: { id: categoryId }
+    });
+
+    if (!isCategoryExist) {
+        throw new Error("Category not found with this ID");
     }
 
-    return GearWithCategory
-}
+    const gearWithCategory = await prisma.gearItem.findMany({
+        where: {
+            categoryId: categoryId
+        },
+        include: {
+            category: true,
+            provider: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    status: true
+                }
+            }
+        }
+    });
 
+    return gearWithCategory;
+};
 
 export const gearService = {
     

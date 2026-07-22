@@ -6,6 +6,6 @@ const router = Router()
 
 router.get('/', gearController.getAllGear);
 router.get('/:id',gearController.getSingelGear)
-router.get('/category/:id',gearController.getGearWithCategory)
+router.get('/categories/:categoryId',gearController.getGearWithCategory)
 
 export const gearRouter = router

@@ -33,19 +33,35 @@ const getSingelGear = catchAsync(async (req:Request, res:Response,next:NextFunct
 })
 
 
-const getGearWithCategory = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
-    const categoryId = req.params.categoryid
+// const getGearWithCategory = catchAsync(async (req:Request, res:Response,next:NextFunction) => {
+//     const categoryId = req.params.categoryid
 
-    const result = await gearService.getGearWithCategory(categoryId as string)
+//     const result = await gearService.getGearWithCategory(categoryId as string)
 
-    sendResponse(res,{
-      success: true,
-      statusCode:httpStatus.OK,
-      message: "get categoryGear  retrived  successfully",
-      data: result
+//     sendResponse(res,{
+//       success: true,
+//       statusCode:httpStatus.OK,
+//       message: "get categoryGear  retrived  successfully",
+//       data: result
+//     });
+
+// })
+
+
+const getGearWithCategory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const categoryId = req.params.categoryId; 
+
+    const result = await gearService.getGearWithCategory(categoryId as string);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Category gear retrieved successfully",
+        data: result
     });
+});
 
-})
 
 
 
